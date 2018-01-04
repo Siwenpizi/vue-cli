@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="app">
+			<p>input框自动获取焦点 </p>
+			
+			<input type="text"  id="box" v-focus/>  <!--v-focus  自定义指令-->
+			
+			<div v-jiyun="{color:'pink',text:'积云教育'}">
+				积云教育集团H51703H
+			</div>
+		</div>
+	</body>
+	<script src="../../js/vue.min.js" ></script>
+	<script type="text/javascript">
+//		var oBox=document.getElementById("box")
+//		oBox.focus();
+		
+//		注册全局指令
+		Vue.directive("focus",{
+			inserted:function (el) {
+				el.focus()
+			}
+		})
+		
+//		Vue.directive("jiyun",{
+//			inserted:function (el,val) {
+//				el.style.backgroundColor=val.value.color;
+//				el.innerHTML=val.value.text;
+//			}
+//		})
+		Vue.directive("jiyun",function(el,binding){	
+				console.log(binding)
+				el.style.backgroundColor=binding.value.color;
+				el.innerHTML=binding.value.text;			
+		})
+		
+		
+		new Vue({
+			el:"#app",
+		})
+		
+	</script>
+</html>

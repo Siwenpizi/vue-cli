@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app"  v-runoob:hello.a.b="message">
+		</div>			
+	</body>
+	<script src="../../js/vue.min.js" ></script>
+	<script type="text/javascript">		
+		//注册全局自定义指令  v-focus
+		
+		Vue.directive('runoob', {
+		  bind: function (el, binding, vnode) {
+		    var s = JSON.stringify
+		    el.innerHTML =
+		   	  '元素名: '		 + el.nodeName + '<br>' +
+		      'name: '       + s(binding.name) + '<br>' +
+		      'value: '      + s(binding.value) + '<br>' +
+		      'expression: ' + s(binding.expression) + '<br>' +
+		      'argument: '   + s(binding.arg) + '<br>' +
+		      'modifiers: '  + s(binding.modifiers) + '<br>' +
+		      'vnode keys: ' + Object.keys(vnode).join(', ')
+		  }
+		})
+	
+		new Vue({
+			el:"#app",
+			data:{
+				message: '菜鸟教程!'
+			}
+		})
+		
+	</script>
+</html>

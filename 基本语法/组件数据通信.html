@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		
+		<template id="a">
+			<div>
+				组件内容{{msg}}
+			</div>
+		</template>
+		
+		<div id="vue_v">
+			<wsk msg="123456"></wsk>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//还可以这样注册全局组件
+		var o = {
+			//显示的声明props
+			props:["msg"],
+			//可以再vue实例中用 this.msg 来使用
+			template:a
+		}
+		Vue.component("wsk",o)
+		
+		
+		var vue_m = {
+			name:"王少坤"
+		}
+		//创建根实例
+		var oVue = new Vue({
+			el:"#vue_v",
+			data:vue_m,
+		})
+	</script>
+</html>

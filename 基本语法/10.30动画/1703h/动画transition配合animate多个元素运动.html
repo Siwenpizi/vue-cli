@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			p{
+				height: 300px;
+				width: 300px;
+				background: yellowgreen;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="../../../css/animate.css"/>
+	</head>
+	<body>		
+		<div id="app">
+			<input type="button" value="显示/隐藏"  @click="show=!show"/>
+			<!--过渡的动画效果-->
+			<transition-group enter-active-class="fadeInLeft" leave-active-class="fadeOutLeft">
+				<p v-show="show" class="animated" v-bind:key="1"></p>										
+				<p v-show="show" class="animated" v-bind:key="2"></p>										
+				<p v-show="show" class="animated" v-bind:key="3"></p>										
+				<p v-show="show" class="animated" v-bind:key="4"></p>																					
+			</transition>
+			
+			<!--多个元素的运动
+			<transition-group enter-active-class="" leave-active-class="">
+				<p :key="1"></p>										
+				<p :key="2"></p>																																	
+			</transition>-->
+			
+			
+			<!--
+			v2.0动画效果
+			<transition name="fade">
+				运动的元素  （元素  属性  路由。。。）			
+			</transition>
+			class 样式
+			.fade-enter             初始状态
+			.fade-enter-active		变化成什么样子---》当元素显示出来
+			.fade-leave				初始装态  
+			.fade-leave-active		变化成什么样子---》当元素离开
+			
+			-->
+		</div>
+	</body>
+	<script src="../../../js/vue.min.js" ></script>
+	<script type="text/javascript">
+
+				
+		new Vue({
+			el:"#app",
+			data:{
+				show:false,
+			}
+		})
+		
+	</script>
+</html>

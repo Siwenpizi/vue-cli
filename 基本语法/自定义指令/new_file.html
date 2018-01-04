@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/vue-router.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			*{
+				margin: 0;padding: 0;list-style: none;
+				font-family: "微软雅黑";
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="vue_v">
+			<input type="text" v-focus/>
+			<div v-demo="{ color: 'red', text: '自定义指令!'}"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		Vue.directive("focus",{
+			// 当绑定元素插入到 DOM 中。
+			inserted:function(el){
+				// 聚焦元素
+				el.focus()
+			}
+		});
+		var vue_m = {
+			
+		}
+		var oVue_vm = new Vue({
+			el:"#vue_v",
+			data:vue_m,
+			directives:{
+				demo:function(el,binding){
+					console.log(el);
+					console.log(binding);
+					el.innerHTML = binding.value.text;
+					el.style.color = binding.value.color;
+				}
+			}
+		})
+	</script>
+</html>

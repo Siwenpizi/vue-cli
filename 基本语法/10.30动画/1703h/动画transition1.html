@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			p{
+				height: 300px;
+				width: 300px;
+				background: lightyellow;
+			}
+		</style>
+	</head>
+	<body>		
+		<div id="app">
+			<input type="button" value="显示/隐藏"  @click="show=!show"/>
+			<!--过渡的淡入淡出效果-->
+			<transition name="fade">
+				<p v-show="show"></p>				
+			</transition>
+			
+			<!--
+			v2.0动画效果
+			<transition name="fade">
+				运动的元素  （元素  属性  路由。。。）			
+			</transition>
+			class 样式
+			.fade-enter             初始状态
+			.fade-enter-active		变化成什么样子---》当元素显示出来
+			.fade-leave				初始装态  
+			.fade-leave-active		变化成什么样子---》当元素离开
+			
+			-->
+		</div>
+	</body>
+	<script src="../../../js/vue.min.js" ></script>
+	<script type="text/javascript">
+
+				
+		new Vue({
+			el:"#app",
+			data:{
+				show:false,
+			}
+		})
+		
+	</script>
+</html>

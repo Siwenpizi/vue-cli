@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue-router.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../css/1.css"/>
+	</head>
+	<body>
+		<template id="ab">
+			<div>
+				<nav>
+					<img src="WebApp2素材/fanh.png"/>
+					<span>孕前准备</span>
+					<img src="WebApp2素材/searchq.png"/>
+				</nav>
+				<div v-for="(val,i) in data.img" class="box">
+					<img :src="val" alt="" />
+					<p>{{data.tex[i]}}</p>
+				</div>
+			</div>
+		</template>
+		
+		<div id="app">
+			<div>
+				<router-view></router-view>
+			</div>
+			<ul @click="get()">
+				<li><router-link to="home">首页</router-link></li>
+				<li><router-link to="fav">收藏</router-link></li>
+				<li><router-link to="his">历史记录</router-link></li>
+				<li><router-link to="con">设置</router-link></li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var Home = {
+			props:["imgs"],
+			template:"#ab",
+			
+			data:function(){
+				return {
+					data:{}
+				}
+			},
+			mounted(){
+				this.$http.get("http://localhost:8085").then(function(res){
+					console.log(this.data)
+					this.data=JSON.parse(res.data)
+					console.log(this.data)
+				},function(err){})
+			}
+			
+		}
+		var Fav = {
+			template:"<h1>这是收藏</h1>"
+		}
+		var His = {
+			template:"<h1>这是历史记录</h1>"
+		}
+		var Con = {
+			template:"<h1>这是设置</h1>"
+		}
+		
+		const routes = [
+			{path:"/home",component:Home},
+			{path:"/fav",component:Fav},
+			{path:"/his",component:His},
+			{path:"/con",component:Con},
+			{path:"*",redirect:"/home"} 
+		]
+		const router = new VueRouter({
+			routes:routes,
+		});
+		
+		var vue_app = new Vue({
+			router,
+			el:"#app",
+			data:{
+				
+			},
+			methods:{
+				
+			},
+			beforeMount(){
+				/*this.$http.get("http://localhost:8085").then(function(res){
+					console.log(this.data)
+//					this.data=JSON.parse(res.data)
+					console.log(this.data)
+				},function(err){})*/
+			}
+		});
+	</script>
+</html>

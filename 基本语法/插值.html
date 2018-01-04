@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.class1{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<!--view(视图层)-->
+		<div id="app">
+			{{miss}}<!--数据绑定最常见的形式就是使用 {{...}}（双大括号）的文本插值：-->
+			
+			<!--使用 v-html 指令用于输出 html 代码：-->
+			<h1 v-html="ht"></h1>
+			
+			<!--使用 v-text 指令绑定纯文本-->
+			<h2 v-html="miss"></h2>
+			
+			<!--HTML 属性中的值应使用 v-bind 指令。
+以下实例判断 class1 的值，如果为 true 使用 class1 类的样式，否则不使用该类：-->
+			<div v-bind:class="{'class1': cal}">
+				directiva v-bind:class
+			</div>
+			
+			<!--Vue.js 都提供了完全的 JavaScript 表达式支持。-->
+			{{5+5}}<br>
+		    {{ ok ? 'YES' : 'NO' }}<br>
+		    {{ message.split('').reverse().join('') }}
+		    
+		</div>
+	</body>
+	<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//model (数据模型)
+		var model = {
+			miss:"hello world!!",
+			ht:"<h1>hello vue!!</h1>",
+			cal:true,
+			ok: true,
+    		message: 'RUNOOB',
+		};
+		//ViewModel(视图模型) 声明式渲染
+		var oVue = new Vue({
+			el:"#app",//element  (DOM元素)
+			data:model  //数据模型
+		});
+		console.log(oVue.miss === model.miss);
+	</script>
+</html>

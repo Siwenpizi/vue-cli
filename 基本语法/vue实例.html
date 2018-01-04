@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+	</body>
+	<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:"#box",//指定此对象   要绑定到哪个元素（要绑定到的位置）
+			template:"<p>{{ name }</p>",//我们将要使用的一个模版
+			data:{		//定义的数据
+				name:"Tom"
+			},
+		})
+	</script>
+</html>

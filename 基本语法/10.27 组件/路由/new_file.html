@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/vue-router.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<template id="wode">
+			<div>
+				<p><router-link to="123">123</router-link></p>
+				<p><router-link to="456">456</router-link></p>
+				<p><router-link to="789">789</router-link></p>
+			</div>
+		</template>
+		
+		
+		<div id="vue_v">
+			<ul>
+				<li><router-link to="/zhuye">主页</router-link></li>
+				<li><router-link to="/shangcheng">商城</router-link></li>
+				<li><router-link to="/wode">我的</router-link></li>
+			</ul>
+			<router-view></router-view>
+		</div>
+	</body>
+	<script type="text/javascript">
+		// 1. 定义（路由）组件。
+		const Index={template:"<div>这是主页</div>"};
+		const Shangcheng={template:"<div>这是商城</div>"};
+		const Wode={
+			template:"#wode"
+		};
+		
+		const a = {template:"<p>123</p>"}
+		const b = {template:"<p>456</p>"}
+		const c = {template:"<p>789</p>"}
+		// 2. 定义路由
+		// 每个路由应该映射一个组件。 其中"component" 可以是
+		// 通过 Vue.extend() 创建的组件构造器，
+		// 或者，只是一个组件配置对象。
+		// 我们晚点再讨论嵌套路由。
+		const routes = [
+			{path:"/zhuye",component:Index},
+			{path:"/shangcheng",component:Shangcheng},
+			{
+				path:"/wode",component:Wode,
+				children:[
+					{path:"/123",component:a}
+					{path:"/456",component:b}
+					{path:"/789",component:c}
+				]
+			},
+			{path:"*",redirect:"/zhuye"} 
+		]
+		//3. 创建 router 实例，然后传 `routes` 配置
+		//你还可以传别的配置参数, 不过先这么简单着吧。
+		const router = new VueRouter({
+			routes
+		})
+		//4. 创建和挂载根实例。
+		var oVue_vm = new Vue({
+			router,
+			el:'#vue_v',
+			data:{
+				
+			}
+		})
+	</script>
+</html>

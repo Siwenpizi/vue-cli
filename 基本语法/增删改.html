@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+	</head>
+	<body>
+		<div id="app" style="padding: 30px;">
+			<div class="panel panel-primary">
+				<div class="panel-heading">学生管理</div>
+				<table class="table table-bordered table-striped text-center">
+					<thead>
+						<tr>
+							<td>用户名</td>
+							<td>年龄</td>
+							<td>毕业院校</td>
+							<td>备注</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody>
+						<template v-for="row in rows">
+							<tr>
+								<td>{{row.name}}</td>
+								<td>{{row.age}}</td>
+								<td>{{row.school}}</td>
+								<td>{{row.remark}}</td>
+								<td><a href="#" @click="edit(row)">编辑</a><a href="#" @click="del(row.id)">删除</a></td>
+							</tr>
+						</template>
+							<tr>
+								<td><input type="text" class="form-control" v-model="rowtemplate.name"/></td>
+								<td><input type="text" class="form-control" v-model="rowtemplate.age"/></td>
+								<td>
+									<select class="form-control" v-model="rowtemplate.school">
+										<option>光明学校</option>
+										<option>黑暗学校</option>
+										<option>希望学校</option>
+										<option>复兴学校</option>
+										<option>光明与黑暗学校</option>
+									</select>
+								</td>
+								<td><input type="text" class="form-control" v-model="rowtemplate.remark"/></td>
+								<td>
+									<button type="button" class="btn btn-primary" v-on:click="save">保存</button>
+								</td>
+							</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>	
+	</body>
+	<script src="../js/vue.min.js" ></script>
+	<script type="text/javascript">
+		var data={
+			rows:[
+				{id:1,name:"文龙",age:18,school:"光明学校",remark:"三好学生"},
+				{id:2,name:"马舒雅",age:17,school:"黑暗学校",remark:"优秀学生"},
+				{id:3,name:"任杰",age:16,school:"希望学校",remark:"四好学生"},
+				{id:4,name:"赵岩",age:19,school:"复兴学校",remark:"五好学生"},
+				{id:5,name:"李钱",age:8,school:"光明与黑暗学校",remark:"优秀学生"},
+			],
+			rowtemplate:{id:0,name:"",age:"",school:"",remark:""}
+		}
+		
+		var vue=new Vue({
+			el:"#app",
+			data:data,
+			methods:{
+				save:function () {
+					if(this.rowtemplate.id==0){
+//						设置当前新增行的id
+						this.rowtemplate.id=this.rows.length+1;
+//						console.log(this.rowtemplate.id);
+						if (this.rowtemplate.name==""||this.rowtemplate.age==""||this.rowtemplate.school==""||this.rowtemplate.remark=="") {
+							alert("请完善资料");
+							
+						} else{
+							this.rows.push(this.rowtemplate);
+						}
+					}
+					//清空
+					this.rowtemplate={id:0,name:"",age:"",school:"",remark:""};
+				},			
+				edit:function (row) {
+					this.rowtemplate=row;
+				},
+				del:function (id) {
+					
+					for (var i = 0; i < this.rows.length; i++) {
+						if (this.rows[i].id==id) {
+							this.rows.splice(i,1);
+							break;
+						}
+					}
+					//重新赋值ID
+					this.rows.forEach(function(val,i){
+						val.id=i+1;
+					})
+				}
+			}
+		})
+		
+		
+	</script>
+</html>

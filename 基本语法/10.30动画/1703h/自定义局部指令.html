@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="app">
+			<p v-red>红色文字</p>
+			<p v-blue="{color:'blue'}">蓝色文字</p>
+			
+			<p>input框自动获取焦点 </p>			
+			<input type="text"  id="box" v-focus/>  <!--v-focus  自定义指令-->
+		</div>
+	</body>
+	<script src="../../js/vue.min.js" ></script>
+	<script type="text/javascript">
+//		var oBox=document.getElementById("box")
+//		oBox.focus();
+		
+//		注册全局指令
+//		Vue.directive("focus",{
+//			inserted:function (el) {
+//				el.focus()
+//			}
+//		})
+		
+		
+		new Vue({
+			el:"#app",
+			//注册局部指令
+			directives:{
+				focus:{
+					inserted:function (el) {
+						el.focus()
+					}
+				},
+				red:{
+					bind:function (el) {
+						el.style.color="red"
+					}
+				},
+				blue:{
+					bind:function (el,val) {
+						console.log(val)
+						el.style.color=val.value.color;
+					}
+				}
+			}
+		})
+		
+	</script>
+</html>

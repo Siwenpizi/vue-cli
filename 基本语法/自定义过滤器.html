@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="box">
+			<p>{{ num | zhuan(2) }}</p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		var oVue_vm = new Vue({
+			el:"#box",
+			data:{
+				num:10
+			},
+			filters:{
+				ming:function(i){
+					console.log(i)
+					return i<10? "0"+i : i ;
+				},
+				zhuan:function(i,j){
+					if (j==2||j==8||j==10||j==16) {
+						return i.toString(j)
+					} else{
+						return "参数有误"
+					}
+				}
+			}
+		})
+	</script>
+</html>

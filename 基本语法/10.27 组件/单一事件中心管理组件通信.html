@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>				
+		<div id="app">
+			<!--3：调用-->
+			<com-a></com-a>
+			<com-b></com-b>
+			<com-c></com-c>		
+		</div>
+	</body>
+	<script src="../../js/vue.min.js"></script>
+	<script type="text/javascript">	
+		//先准备一个空实例对象  
+		var Event=new Vue();
+		
+		var A={
+			//定义组件
+			template:`//反撇号   增强字符串符号
+				<div>
+					<span>我是A组件</span>--->{{a}}
+					<input type="button" value="把A数据给C"  @click="send"/>
+					<span>我是C数据</span>--->{{c}}	
+				</div>
+			`,
+			//定义组件中的数据
+			data(){//函数
+				return {
+					a:"我是A的数据",
+					c:""
+				}
+			},
+			//定义组件中的事件的
+			methods:{
+				send(){
+					//用空实例对象的$emit()方法把this.a的值赋给a-msg并传出去
+					Event.$emit("a-msg",this.a)//$emit 传   $on 收
+				}
+			},
+			mounted(){
+				//接收C组件数据	(用空实例对象的$on()方法接收出-msg传进来的数据，并挂载到this.a上)
+				Event.$on("c-msg",function (a) {
+					this.c=a;
+				}.bind(this));
+			},
+		};
+		var B={
+			template:`//反撇号   增强字符串符号
+				<div>
+					<span>我是B组件</span>--->{{a}}
+					<input type="button" value="把B数据给C"  @click="send"/>
+					<span>我是C数据</span>--->{{c}}	
+				</div>
+			`,
+			data(){//函数
+				return {
+					a:"我是B的数据",
+					c:""
+				}
+			},
+			methods:{
+				send(){
+					Event.$emit("b-msg",this.a)//$emit 传   $on 收
+				}
+			},
+			mounted(){
+				//接收C组件数据	(用空实例对象的$on()方法接收c-msg传进来的数据，并挂载到this.a上)
+				Event.$on("c-msg",function (a) {
+					this.c=a;
+				}.bind(this));
+			},
+		};
+		var C={
+			//定义组件
+			template:`//反撇号   增强字符串符号
+				<div>
+					<span>我是C组件</span>--->{{a}}
+					<p>接收过来A的数据为：{{a}}</p>
+					<p>接收过来B的数据为：{{b}}</p>
+					<input type="button" value="把C的数据传给A和B"  @click="send"/>
+				</div>
+			`,
+			//定义组件中的数据数据
+			data(){//函数
+				return {
+					a:"",
+					b:"",
+					c:"王少坤"
+				}
+			},
+			//模版 编译/挂载 完成之后   执行此函数
+			mounted(){
+				//接收A组件数据	(用空实例对象的$on()方法接收a-msg传进来的数据，并挂载到this.a上)
+				Event.$on("a-msg",function (a) {
+					this.a=a;
+				}.bind(this));
+				//接收B组件数据
+				Event.$on("b-msg",function (a) {
+					this.b=a;
+				}.bind(this))
+			},
+			methods:{
+				send(){
+					Event.$emit("c-msg",this.c)//$emit 传   $on 收
+				}
+			}
+			
+		};
+		
+		
+		
+		
+		
+	
+		
+//		1:创建根实例
+		new Vue({
+			el:"#app",
+			data:{
+				
+			},
+			components:{
+				"com-a":A,
+				"com-b":B,
+				"com-c":C
+			}
+		})
+		
+	</script>
+</html>

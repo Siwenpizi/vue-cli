@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!--3：调用-->
+			<div>
+				<input type="text" v-model="parentmsg"/>
+				<br />
+				<hello v-bind:msg="parentmsg"></hello>								
+			</div>		
+		</div>
+		
+	</body>
+	<script src="../../js/vue.min.js"></script>
+	<script type="text/javascript">		
+//		2：注册全局组件
+		Vue.component("hello",{
+			//显示的声明props
+			props:["msg"],
+			data(){
+				return {counter:this.msg}
+			},
+			//还是可以在vue实例中用  this.msg来使用
+			template:"<div>组件里的内容 {{counter}}</div>"
+		})
+		
+		
+		
+//		1:创建根实例
+		new Vue({
+			el:"#app",
+			data:{
+				parentmsg:"父组件内容",
+			}
+		})
+		
+	</script>
+</html>

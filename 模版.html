@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			*{
+				margin: 0;padding: 0;list-style: none;
+				font-family: "微软雅黑";
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="vue_v">
+			<ul class="ul">
+				<li><router-link to="/zhuye">首页</router-link></li>
+				<li><router-link to="/gouwu">购物车</router-link></li>
+				<li><router-link to="/wode">我的</router-link></li>
+			</ul>
+			<div>
+				<router-view></router-view>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		var zhuye = {
+			//定义模版
+			template:"<div>这是首页</div>"
+		}
+		var gouwu = {
+			//定义模版
+			template:"<div>这是购物车</div>"
+		}
+		var wode = {
+			//定义模版
+			template:"<div>这是我的</div>"
+		}
+		//配置路由(routes是固定的 变量名)
+		const routes = [
+			//path  和   component   是固定的属性名
+			{path:"/zhuye",component:zhuye},
+			{path:"/gouwu",component:gouwu},
+			{path:"/wode",component:wode},
+			{path:"*",redirect:"/zhuye"}
+		];
+		
+		//生成路由实例(router是固定的   对象名)
+		const router=new VueRouter({
+			routes
+		})
+		
+		var vue_m = {
+			
+		}
+		
+		var oVue_vm = new Vue({
+			router,
+			el:"#vue_v",
+			data:vue_m
+		})
+	</script>
+</html>

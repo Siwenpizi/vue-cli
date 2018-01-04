@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.router-link-active{
+			font-size: 30px;
+			color: pink;
+		}
+	</style>
+	<body>
+		
+		<template id="username">
+			<div>
+				{{name}}
+				<div>这是个人中心</div>
+				<ul>
+					<li><router-link to="/user/username">某些用户</router-link></li>
+				</ul>
+				<div>
+					<router-view></router-view>
+				</div>
+			</div>
+		</template>
+		
+		
+		
+		
+		<div id="app">
+			<div>
+				<router-link to="/home">主页</router-link>   <!--生成a标签-->
+				<router-link to="/user">个人中心</router-link>   <!--生成a标签-->
+			</div>
+			<div class="my">
+				<router-view></router-view>	
+			</div>
+		</div>
+		
+		
+		
+		
+	</body>
+	<script src="../../../js/vue.js"></script>
+	<script src="../../../js/vue-router.min.js"></script>
+	<script type="text/javascript">
+		var a={name:"wsk"};
+		//组件
+		var Home={
+			template:"<div>这是首页</div>"
+		}
+		var Usern={
+			template:"<div>这是****用户</div>"
+		}
+		
+		
+		var User={
+			template:"#username",
+			data(){
+				return a
+			}
+		}
+		
+		//配置路由
+		const route=[   //es6 定义变量  let    定义常量  const   块作用域    {}
+			{path:"/home",component:Home},
+			{
+				path:"/user",
+				component:User,
+				children:[//相当于 const route  
+					{path:"username",component:Usern},
+					{path:"*",redirect:"/username"},
+				]
+			},
+			{path:"*",redirect:"/home"}  /*默认加载页(重定向)  当不知道的时候走这   相当于404*/
+		]
+		
+		//生成路由实例
+		const router=new VueRouter({
+			routes:route
+		})
+		
+				
+//		路由实例挂到vue实例上
+		new Vue({
+			router:router,
+			el:"#app",
+			data:{
+				name:"王少坤"
+			}
+		})
+		
+	</script>
+</html>

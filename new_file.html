@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//当文本框内容被选中时触发
+			$("input").select(function() {
+				//添加一个纯文本
+				$("input").after("文本被选中！");
+			});
+			//trigger() 方法触发被选元素的指定事件类型。
+			$("button").click(function() {
+				$("input").trigger("click");
+			});
+		});
+	</script>
+
+	<body>
+		<input type="text" name="FirstName" value="Hello World" />
+		<br />
+		<button>激活 input 域的 select 事件</button>
+	</body>
+
+</html>

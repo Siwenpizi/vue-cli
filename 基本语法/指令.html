@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<p v-if="seen">现在你看到我了</p>
+			
+			<!-- v-on 指令，它用于监听 DOM 事件：-->
+			<button v-on:click="fn">点击</button>
+			<form v-on:submit.prevent="onSubmit"></form>
+			
+			<!--在这里 href 是参数，告知 v-bind 指令将该元素的 href 属性与表达式 url 的值绑定-->
+			<a v-bind:href="url">菜鸟教程</a>
+		</div>
+		
+	</body>
+	<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var oVue = new Vue({
+			el: '#box',
+			data: {
+				seen:true
+			},
+			methods:{
+				fn:function(){
+					console.log(this.seen);
+					this.seen = !this.seen;
+				}
+			}
+		});
+		
+		
+		/*var a = {
+			el: '#box',
+			data: {
+				seen:true
+			},
+			methods:{
+				fn:function(){
+					console.log(this.seen);
+//					this.seen = !this.seen;
+				}
+			}
+		}
+		console.log(a)
+		a.methods.fn()*/
+	</script>
+</html>

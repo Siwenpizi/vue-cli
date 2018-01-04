@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			p{
+				height: 400px;
+				width: 400px;
+				background: burlywood;
+			}
+			.fade-enter{
+				opacity: 0;
+				height: 200px;
+				width: 200px;
+			}
+			.fade-leave{
+				opacity: 1;
+				height: 400px;
+				width: 400px;
+			}
+			.fade-enter-active,.fade-leave-active{
+				transition: 2s all ease;
+			}
+			.fade-enter-active{
+				opacity: 1;
+				height: 400px;
+				width: 400px;
+			}
+			.fade-leave-active{
+				opacity: 0;
+				height: 200px;
+				width: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="显示/隐藏" @click="show=!show"/>
+			<!--过渡的淡入淡出效果-->
+			<transition name="fade">
+				<p v-show="show"></p>				
+			</transition>
+			<!--
+			vue2.0动画
+			<transition name="fade">
+				需要运动的元素（属性  路由）
+			</transition>-->
+			<!--
+			class样式			
+			.fade-enter 			初始状态   进入
+			.fade-enter-active  	变化成什么样子   --》当元素显示出来的时候
+			.fade-leave  			初始状态   离开
+			.fade-leave-active 		变化成什么样子   --》当元素离开的时候	
+			-->
+			
+			
+		</div>				
+	</body>
+	<script src="../../js/vue.min.js" ></script>
+	<script type="text/javascript">		
+		
+		new Vue({
+			el:"#app",
+			data:{
+				show:false,
+			}
+		})
+		
+	</script>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+		<style type="text/css">
+			table thead tr th{
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="panel panel-primary">
+				<div class="panel-heading" style="text-align: center;">用户管理</div>
+				
+				<table class="table table-bordered table-striped text-center">
+					<thead>
+						<th>用户名</th>										
+						<th>年龄</th>										
+						<th>毕业学校</th>										
+						<th>备注</th>										
+													
+					</thead>
+					<tbody>
+						<template v-for="(row, index) in rows">
+							<tr v-if="index>=(curpage-1)*pagesize&&index<curpage*pagesize">
+								<td>{{row.name}}</td>
+								<td>{{row.age}}</td>
+								<td>{{row.school}}</td>
+								<td>{{row.remark}}</td>								
+							</tr>	
+						</template>							
+					</tbody>
+				</table>
+				
+			</div>
+			<nav style="float: right;">
+				<ul class="pagination pagination-lg">
+					<template  v-for="page in Math.ceil(rows.length/pagesize)">
+						<li v-on:click="prePage()" id="prepage" v-if="page==1" class="disabled"><a href="#">上一页</a></li>
+						<li v-if="page==1" class="active" v-on:click="numPage(page,$event)"><a href="#">{{page}}</a></li>
+						<li v-else v-on:click="numPage(page,$event)"><a href="#">{{page}}</a></li>
+						<li id="nextpage" v-on:click="nextPage()" v-if="page==Math.ceil(rows.length/pagesize)"><a href="#">下一页</a></li>
+					</template>
+				</ul>
+			</nav>
+		</div>		
+	</body>
+	<script src="../js/vue.min.js" ></script>
+	<script src="../js/jquery-1.11.3.js"></script>
+	<script type="text/javascript">
+		var data={
+			rows:[
+				{id:1,name:"张宠",age:18,school:"光明小学",remark:"三好学生"},
+				{id:2,name:"tom",age:17,school:"黑暗小学",remark:"三坏学生"},
+				{id:3,name:"queen",age:20,school:"光明小学",remark:"优秀干部"},
+				{id:4,name:"king",age:19,school:"光明大学",remark:"优秀学生"},
+				{id:5,name:"mary",age:16,school:"光明与黑暗小学",remark:"好学生"},				
+				{id:6,name:"king",age:19,school:"光明大学",remark:"优秀学生"},
+				{id:7,name:"mary",age:16,school:"光明与黑暗小学",remark:"好学生"},
+				{id:8,name:"张宠",age:18,school:"光明小学",remark:"三好学生"},
+				{id:9,name:"tom",age:17,school:"黑暗小学",remark:"三坏学生"},
+				{id:10,name:"queen",age:20,school:"光明小学",remark:"优秀干部"},
+				{id:11,name:"king",age:19,school:"光明大学",remark:"优秀学生"},
+				{id:12,name:"mary",age:16,school:"光明与黑暗小学",remark:"好学生"},				
+				{id:13,name:"king",age:19,school:"光明大学",remark:"优秀学生"},
+				{id:14,name:"mary",age:16,school:"光明与黑暗小学",remark:"好学生"},	
+				{id:15,name:"张宠",age:18,school:"光明小学",remark:"三好学生"},
+				{id:16,name:"张宠",age:18,school:"光明小学",remark:"三好学生"},
+				{id:17,name:"tom",age:17,school:"黑暗小学",remark:"三坏学生"},
+				{id:18,name:"queen",age:20,school:"光明小学",remark:"优秀干部"},
+				{id:19,name:"king",age:19,school:"光明大学",remark:"优秀学生"},
+				{id:20,name:"mary",age:16,school:"光明与黑暗小学",remark:"好学生"},				
+				{id:21,name:"king",age:19,school:"光明大学",remark:"优秀学生"},
+				{id:22,name:"mary",age:16,school:"光明与黑暗小学",remark:"好学生"},
+				{id:23,name:"张宠",age:18,school:"光明小学",remark:"三好学生"},
+				{id:24,name:"tom",age:17,school:"黑暗小学",remark:"三坏学生"},
+				{id:25,name:"queen",age:20,school:"光明小学",remark:"优秀干部"},
+				{id:26,name:"king",age:19,school:"光明大学",remark:"优秀学生"},
+				{id:27,name:"mary",age:16,school:"光明与黑暗小学",remark:"好学生"},				
+				{id:28,name:"king",age:19,school:"光明大学",remark:"优秀学生"},
+				{id:29,name:"mary",age:16,school:"光明与黑暗小学",remark:"好学生"},	
+				{id:30,name:"张宠",age:18,school:"光明小学",remark:"三好学生"},
+								
+			],
+			pagesize:5,//当前页显示数据的条数
+			curpage:1//当前页的页码
+		}
+		
+		var vue=new Vue({
+			el:"#app",
+			data:data,
+			methods:{
+				//上一页方法
+				prePage:function () {
+					//获取到当前拥有.active类名的元素的前一个元素，并触发该元素上所绑定的指定的事件
+					$(".pagination .active").prev().trigger("click");
+				},
+				//下一页方法
+				nextPage:function () {
+					//获取到当前拥有.active类名的元素的后一个元素，并触发该元素上所绑定的指定的事件
+					$(".pagination .active").next().trigger("click");
+				},
+				//点击页码的方法
+				numPage:function (page,event) {
+					if (this.curpage==page) {
+						return
+					}
+					this.curpage=page;
+					
+					
+					$(".pagination li").removeClass("active");
+					//事件委派  
+					if (event.target.tagName.toUpperCase()=="LI") {
+						$(event.target).addClass("active");
+					} else{
+						$(event.target).parent().addClass("active");
+					}
+					if (this.curpage==1) {
+						$("#prepage").addClass("disabled")
+					} else{
+						$("#prepage").removeClass("disabled")
+					}
+					if (this.curpage==Math.ceil(this.rows.length/this.pagesize)) {
+						$("#nextpage").addClass("disabled")
+					} else{
+						$("#nextpage").removeClass("disabled")
+					}
+				}			
+			}			
+		})
+		
+		
+//		trigger() 方法触发被选元素的指定事件类型。（执行指定元素上的指定的事件）
+	</script>
+</html>

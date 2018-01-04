@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			p{
+				height: 300px;
+				width: 300px;
+				background: red;
+			}
+			.fade-enter{
+				opacity: 0;
+				
+			}
+			.fade-enter-active,.fade-leave-active{
+				transition: 2s all ease;
+			}
+			.fade-enter-active{
+				opacity: 0.5;
+				height: 150px;
+				width: 150px;
+			}
+			.fade-leave-active{
+				opacity: 0.5;
+				height: 150px;
+				width: 150px;
+			}
+			.fade-leave{
+				opacity: 1;
+			}
+			
+		</style>
+	</head>
+	<body>		
+		<div id="app">
+			<input type="button" value="显示/隐藏"  @click="show=!show"/>
+			<!--过渡的淡入淡出效果-->
+			<transition name="fade"
+				@before-enter="beforeEnter"
+				@enter="enter"
+				@after-enter="afterEnter"
+				@before-leave="beforeLeave"
+				@leave="leave"
+				@after-leave="afterLeave"
+				>
+				<p v-if="show"></p>				
+			</transition>
+			
+			<!--
+			v2.0动画效果
+			<transition name="fade">
+				运动的元素  （元素  属性  路由。。。）			
+			</transition>
+			class 样式
+			.fade-enter             初始状态
+			.fade-enter-active		变化成什么样子---》当元素显示出来
+			.fade-leave				初始装态  
+			.fade-leave-active		变化成什么样子---》当元素离开
+			
+			-->
+		</div>
+	</body>
+	<script src="../../../js/vue.min.js" ></script>
+	<script type="text/javascript">
+
+				
+		new Vue({
+			el:"#app",
+			data:{
+				show:false,
+			},
+			methods:{
+				beforeEnter(el){
+					console.log("动画enter之前")
+				},
+				enter(el){
+					console.log("动画enter执行")
+				},
+				afterEnter(el){
+					console.log("动画enter之后")
+					el.style.background="yellowgreen"
+				},
+				beforeLeave(el){
+					console.log("动画leave之前")
+				},
+				leave(el){
+					console.log("动画leave执行")
+					el.style.background="aqua"
+				},
+				afterLeave(el){
+					console.log("动画leave之后")
+					
+				},
+			}
+		})
+		
+	</script>
+</html>

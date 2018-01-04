@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;padding: 0;list-style: none;font-family: "微软雅黑";font-size: 16px;
+			}
+			#vue_V{
+				width: 80%;
+				margin: 50px auto;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#vue_V ul{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#vue_V ul li{
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				border: 1px solid #aaa;
+			}
+			#vue_V>ul>li:hover{
+				background: rgba(200,200,200,0.2);
+			}
+			.bg{
+				background: red;
+				border: 1px solid red !important ;
+			}
+			.bg:hover{
+				background-color: red !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="vue_V">
+			<input type="button" name="" id="" value="上一页" disabled="true"/>
+			<ul>
+				<!--<li v-for="(val,key) in arr" v-on:click="fn(val,key)" v-bind:class='{"bg":val.b}'>{{val.a}}</li>-->
+				<li v-for="(val,key) in arr" v-on:click="fn(val,key)" v-bind:class='{"bg":key[1]}'>{{val[0]}}</li>
+			</ul>
+			<input type="button" name="" id="" value="下一页" />
+		</div>
+	</body>
+	<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var vue_M = {
+			arr:[
+				/*{a:1,b:false},
+				{a:2,b:false},
+				{a:3,b:false},
+				{a:4,b:false},
+				{a:5,b:false},
+				{a:6,b:false},*/
+				[1,true],
+				[2,false],
+				[3,false],
+				[4,false],
+				[5,false],
+				[6,false],
+				[7,false]
+			]
+		}
+		var vue_VM = new Vue({
+			el:"#vue_V",
+			data:vue_M,
+			methods:{
+				fn:function(val,key){
+					
+					/*for(var i = 0;i<this.arr.length;i++){
+						this.arr[i].b = false
+					};
+					this.arr[key].b = true;*/
+					
+					for(var i = 0;i<this.arr.length;i++){
+						this.arr[i][1] = false;
+						console.log(this.arr[i][1])
+					};
+					this.arr[key][1] = true;
+					console.log(this.arr[key][1])
+				}
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!--3：调用-->
+			<hello msg="hello 1703G students" ww=" 王少坤"></hello>
+		</div>
+		
+	</body>
+	<script src="../../js/vue.min.js"></script>
+	<script type="text/javascript">		
+//		2：注册全局组件
+		Vue.component("hello",{
+			//显示的声明props
+			props:["msg",'ww'],
+			//还是可以在vue实例中用  this.msg来使用
+			template:"<div>组件里的内容{{msg}}<p>{{ww}} {{a}}</p></div>",
+			data(){
+				return {
+					a:"我是A的数据"
+				}
+			}
+		})
+		
+		
+		
+//		1:创建根实例
+		new Vue({
+			el:"#app",
+			data:{
+			}
+		})
+		
+	</script>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="vue_v">
+			<p1></p1>
+			<p2></p2>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//先准备一个空实例对象
+		var Event=new Vue();
+
+
+
+		//定义组件代码块
+		var mo1 = {
+			//定义代码块
+			template:`
+				<div>
+					我是mo1代码块---><span>{{mo1}}</span>
+					<input type="button" value="把mo1数据给mo2"  @click="send"/>
+					<h1>我是mo1模块,接收了:{{mo2}}</h1>
+				</div>
+
+			`,
+			//定义组件中的数据
+			data(){
+				return {
+					mo1:"我是mo1的数据",
+					mo2:""
+				}
+			},
+			//定义组件中的事件的
+			methods:{
+				send(){
+					//用空实例对象的$emit()方法把this.mo1的值赋给mo1-data并传出去
+					Event.$emit("mo1-data",this.mo1)//$emit 传   $on 收
+				}
+			},
+			//模版 编译/挂载 完成之后   执行此函数
+			mounted(){
+				//接收mo2组件数据	(用空实例对象的$on()方法接收mo2-data传进来的数据，并挂载到this.a上)
+				Event.$on("mo2-data",function (a) {
+					this.mo2=a;
+				}.bind(this));
+			},
+		};
+
+
+		var mo2 = {
+			//定义mo2的代码块
+			template:`
+				<div>
+					我是mo2代码块--->
+					<span>{{mo2}}</span>
+					<input type="button" value="把mo2数据给mo1"  @click="send"/>
+					<h1>我是mo2模块,接收了:{{mo1}}</h1>
+				</div>
+			`,
+			//定义组件中的数据
+			data(){
+				return {
+					mo1:"",
+					mo2:"我是mo2的数据",
+
+				}
+			},
+			//定义组件中的事件的
+			methods:{
+				send(){
+					//用空实例对象的$emit()方法把this.a的值赋给a-msg并传出去
+					Event.$emit("mo2-data",this.mo2)//$emit 传   $on 收
+				}
+			},
+			//模版 编译/挂载 完成之后   执行此函数
+			mounted(){
+				//接收mo1组件数据	(用空实例对象的$on()方法接收mo1-data传进来的数据，并挂载到this.a上)
+				Event.$on("mo1-data",function (a) {
+					this.mo1=a;
+				}.bind(this));
+			},
+		}
+
+
+
+
+
+		//创建实例
+		var oVue_vm = new Vue({
+			//挂载到元素
+			el:"#vue_v",
+			//定义数据
+			data:{
+
+			},
+			//定义局部组件
+			components:{
+				"p1":mo1,
+				"p2":mo2,
+			}
+		})
+	</script>
+</html>

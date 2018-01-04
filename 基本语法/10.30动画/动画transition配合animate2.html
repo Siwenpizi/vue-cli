@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			p{
+				height: 300px;
+				width: 300px;
+				background: burlywood;
+			}
+				
+		</style>
+		<link rel="stylesheet" type="text/css" href="../../css/animate.css"/>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="显示/隐藏" @click="show=!show"/>
+			<!--过渡的淡入淡出效果-->
+			<transition enter-active-class="zoomInLeft" leave-active-class="zoomOutRight">
+				<p v-show="show" class="animated"></p>				
+			</transition>
+			
+		</div>				
+	</body>
+	<script src="../../js/vue.min.js" ></script>
+	<script type="text/javascript">		
+		
+		new Vue({
+			el:"#app",
+			data:{
+				show:false,
+			}
+		})
+		
+	</script>
+</html>

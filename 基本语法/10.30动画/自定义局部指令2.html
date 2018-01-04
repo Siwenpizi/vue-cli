@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			
+			<div v-jiyun="{color:'pink',text:'积云教育'}">
+				积云教育的内容H5
+			</div>
+			
+			<p v-demo="{color:'red'}">红色文字</p>
+			<h2>页面载入时 input框自动获取焦点：</h2>						
+			<input type="text"  v-focus/>   <!--自定义指令名  v-focus-->
+		</div>				
+	</body>
+	<script src="../js/vue.min.js" ></script>
+	<script type="text/javascript">		
+		//注册全局自定义指令  v-focus
+		
+		Vue.directive("focus",{
+			//当绑定元素插入到dom中
+			inserted:function (el) {
+				el.focus()
+			}
+		})
+	
+		new Vue({
+			el:"#app",
+			data:{
+				
+			},
+			//注册局部指令
+			directives:{
+				demo:{
+					bind:function (el,val) {
+						el.style.color=val.value.color;
+					}
+				},
+				jiyun:function (el,binding) {
+					//设置指令的文字内容   背景颜色
+					el.style.backgroundColor=binding.value.color;
+					el.innerHTML=binding.value.text;
+				}
+			}
+		})
+		
+	</script>
+</html>

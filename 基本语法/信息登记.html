@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id="vue_V">
+			<p>信息管理</p>
+			<table border="1" cellspacing="0" cellpadding="10">
+				<tr>
+					<th>姓名</th>
+					<th>年龄</th>
+					<th>性别</th>
+					<th>毕业学院</th>
+					<th>备注</th>
+					<th>操作</th>
+				</tr>
+				<template v-for="i in pos">
+					<tr>
+						<td>{{i.name}}</td>
+						<td>{{i.age}}</td>
+						<td>{{i.sex}}</td>
+						<td>{{i.school}}</td>
+						<td>{{i.remark}}</td>
+						<td>
+							<a href="#" @click="revise(i)">修改</a>
+							<a href="#" @click="del(i.id)">删除</a>
+						</td>
+					</tr>
+				</template>
+				<tr>
+					<td><input type="text" class="form-control" v-model="rowtemplate.name"/></td>
+					<td><input type="text" class="form-control" v-model="rowtemplate.age"/></td>
+					<td>
+						<input type="radio" id="a" value="男" v-model="rowtemplate.sex"/>
+						<label for="a">男</label><br />
+						<input type="radio" id="b" value="女" v-model="rowtemplate.sex" />
+						<label for="b">女</label>
+					</td>
+					<td>
+						<select class="form-control" v-model="rowtemplate.school">
+							<option>光明学校</option>
+							<option>黑暗学校</option>
+							<option>希望学校</option>
+							<option>复兴学校</option>
+							<option>光明与黑暗学校</option>
+						</select>
+					</td>
+					<td><input type="text" class="form-control" v-model="rowtemplate.remark"/></td>
+					<td>
+						<button type="button" class="btn btn-primary" v-on:click="add">保存</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var vue_m = {
+			pos:[
+				{id:1,name:"Tom",age:18,sex:"男",school:"光明学校",remark:"三好学生"}
+			],
+			rowtemplate:{id:0,name:"",age:"",sex:"",school:"",remark:""}
+		}
+		
+		
+		var vue_vm = new Vue({
+			el:"#vue_V",
+			data:vue_m,
+			methods:{
+				//添加
+				add:function(){
+					if(this.rowtemplate.id==0){
+//						设置当前新增行的id
+						this.rowtemplate.id=this.pos.length+1;
+//						console.log(this.rowtemplate.id);
+						if (this.rowtemplate.name==""||this.rowtemplate.age==""||this.rowtemplate.school==""||this.rowtemplate.remark==""||this.rowtemplate.sex=="") {
+							alert("请完善资料");
+							
+						} else{
+							this.pos.push(this.rowtemplate);
+						}
+					}
+					//清空
+					this.rowtemplate={id:0,name:"",age:"",sex:"",school:"",remark:""};
+				},
+				//修改
+				revise:function(i){
+					this.rowtemplate=i;
+				},
+				//删除
+				del:function(id){
+					for (var i = 0; i < this.pos.length; i++) {
+						if (this.pos[i].id==id) {
+							this.pos.splice(i,1);
+							break;
+						}
+					}
+					//重新赋值ID
+					this.pos.forEach(function(val,i){
+						val.id=i+1;
+					})
+				}
+			}
+		})
+	</script>
+</html>

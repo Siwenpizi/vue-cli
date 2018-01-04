@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script type="text/javascript">
+//	window.onload=function () {
+	window.onload=()=>{//箭头函数
+//		model
+		var data={
+			message:"hello 1703G students",
+			msg:"页面加载时间是"+new Date(),
+		}
+//		ViewModel   声明式渲染
+		var vue=new Vue({
+			el:"#box",//el   element  绑定的dom元素
+//			data:{
+//				message:"hello 1703G students"
+//			},
+			data:data,//data 需要绑定的数据model
+		})
+
+
+
+
+		var data1={
+			msg:"hello 1703G students"
+		}
+//		ViewModel
+		var vue=new Vue({
+			el:"#app",//el   element  绑定的dom元素
+//			data:{
+//				message:"hello 1703G students"
+//			},
+			data:data1,//data 需要绑定的数据model
+			methods:{
+				reverseMessage:function () {
+					this.msg=this.msg.split("").reverse().join("")
+				}
+			}
+		})
+
+	}
+
+
+//	vue.js 是一个开源的mvvmjs框架   中国人 尤雨溪    是一套构建用户界面的渐进式框架
+//	读  v-u-e  view  和angular类似
+//	Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件。
+//	Vue 只关注视图层， 采用自底向上增量开发的设计。
+
+
+
+	</script>
+	<body>
+		<!--view-->
+		<div id="box">
+			{{message}}
+			<!--<span :title="msg">此处鼠标悬停几秒查看动态绑定的信息</span>-->
+			<span v-bind:title="msg">此处鼠标悬停几秒查看动态绑定的信息</span>
+		</div>
+
+
+		<div id="app">
+			{{msg}}
+			<!--<button @click="reverseMessage">反转信息</button>-->
+			<button v-on:click="reverseMessage">反转信息</button>
+		</div>
+
+	</body>
+	<script src="../js/vue.min.js"></script>
+	
+</html>

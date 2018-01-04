@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!--3：调用-->
+			<ol>
+				<hello v-for="item in arr" v-bind:msg="item.value"></hello>				
+			</ol>
+		</div>
+		
+	</body>
+	<script src="../../js/vue.min.js"></script>
+	<script type="text/javascript">	
+		Vue.component("hello",{
+			//显示的声明props
+			props:["msg"],//绑定的是单向的  父-》子   
+			//还是可以在vue实例中用  this.msg来使用
+			template:"<li>组件里的内容{{msg}}</li>",
+		})
+//		1:创建根实例
+		new Vue({
+			el:"#app",
+			data:{
+				arr:[
+					{value:" 新闻"},
+					{value:" 娱乐"},
+					{value:" 体育"},
+					{value:" 军事"}
+				]
+			}
+		})
+		
+	</script>
+</html>

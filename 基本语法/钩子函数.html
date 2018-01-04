@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="box">
+			{{console.log(msg)}}
+			<button v-on:click="update">更新数据</button>
+			<button v-on:click="del">销毁数据</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var data = {//axios插件
+			msg:"hello Vue.js!!"
+		};
+		var oVue = new Vue({
+			el:"#box",
+			data:data,
+			methods:{
+				update:function(){
+					this.msg="hi Vue.js!!";
+				},
+				del(){
+					//销毁oVue实例对象
+					this.$destroy();
+				}
+			},
+			beforeCreate(){
+				console.log("实例对象被创建之前 , 组件实例刚被创建，组件属性被计算之前")
+			},
+			created(){
+				console.log("实例对象已经被创建 , 组件实例创建完成，属性已绑定，但DOM还未生成")
+			},
+			beforeMount(){
+				console.log("模版 编译/挂载 完成之前")
+			},
+			mounted(){
+				console.log("模版 编译/挂载 完成")
+			},
+			beforeUpdate(){
+				console.log("组件数据更新之前")
+			},
+			updated(){
+				console.log("组件数据更新完成")
+			},
+			beforeDestroy(){
+				console.log("组件数据销毁之前")
+			},
+			destroyed(){
+				console.log("组件数据销毁之后")
+			}
+		})
+	</script>
+</html>

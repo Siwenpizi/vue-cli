@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.router-link-active{
+			font-size: 30px;
+			color: pink;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="../../../css/animate.css"/>
+	<body>
+		<template id="index">
+			<div>这是首页</div>
+		</template>
+		<template id="use">
+			<div>这是个人中心</div>
+		</template>
+		<template id="list">
+			<div>
+				<div>这是列表页</div>
+				<ul>
+					<li>列表1</li>
+					<li>列表2</li>
+					<li>列表3</li>
+					<li>列表4</li>
+					<li>列表5</li>
+				</ul>				
+			</div>
+		</template>
+		
+		
+		<div id="app">
+			<div>
+				<router-link to="/home">主页</router-link>   <!--生成a标签-->
+				<router-link to="/user">个人中心</router-link>   <!--生成a标签-->
+				<router-link to="/list">列表页</router-link>   <!--生成a标签-->
+			</div>
+			<div>
+				<!-- mode="out-in"  先出后进。默认为in-out先进后出 -->
+				<transition mode="out-in" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+					<router-view></router-view>
+				</transition>
+			</div>
+		</div>
+		
+	</body>
+	<script src="../../../js/vue.min.js"></script>
+	<script src="../../../js/vue-router.min.js" ></script>
+	<script type="text/javascript">
+		//组件
+		var Home={
+			template:"#index"
+		}
+		var User={
+			template:"#use"
+		}
+		var List={
+			template:"#list"
+		}
+		
+		
+		//配置路由
+		const routes=[   //es6 定义变量  let    定义常量  const   块作用域    {}
+			{path:"/home",component:Home},
+			{path:"/user",component:User},
+			{path:"/list",component:List},
+			{path:"*",redirect:"/home"}  /*默认加载页*/
+		]
+		
+		//生成路由实例
+		const router=new VueRouter({
+			routes
+		})
+		
+				
+//		路由实例挂到vue实例上
+		new Vue({
+			router,
+			el:"#app",
+			data:{
+				
+			}
+		})
+		
+	</script>
+</html>

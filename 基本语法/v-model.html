@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="vueApp">
+			<input type="radio" name="a" id="a" value="男" v-model="xingbie" />
+			<label for="a">男</label>
+			<input type="radio" name="a" id="b" value="女" v-model="xingbie" />
+			<label for="b">女</label>
+			<hr />
+			{{xingbie}}
+			<hr />
+			<!--在默认情况下， v-model 在 input 事件中同步输入框的值与数据，但你可以添加一个修饰符 lazy ，从而转变为在 change 事件中同步：(失去焦点时触发)-->
+			<input v-model.lazy="msg" type="text">{{msg}}
+			<hr />
+			<!--如果想自动将用户的输入值转为 Number 类型（如果原值的转换结果为 NaN 则返回原值），可以添加一个修饰符 number 给 v-model 来处理输入值-->
+			<input v-model.number="age" type="number">{{age}}
+			<hr />
+			<!--如果要自动过滤用户输入的首尾空格，可以添加 trim 修饰符到 v-model 上过滤输入：-->
+			<input v-model.trim="msg1" type="text">{{msg1}}
+		</div>
+	</body>
+	<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var data = {
+			xingbie:"男",
+			huji:"",
+			msg:"",
+			msg1:"",
+			age:0,
+		};
+		var vueApp = new Vue({
+			el:"#vueApp",
+			data:data
+		})
+	</script>
+</html>
